@@ -50,7 +50,7 @@ pipeline {
                     sh 'git config user.name "Amit Kulkarni"'
                     sh 'git add deployment.yaml'
                     sh 'git commit -m "updated deployment file"'
-                    sh 'git push https://${GITHUB_TOKEN}@github.com/pythoncpp/test-app main'
+                    sh 'git push https://${GITHUB_TOKEN}@github.com/pythoncpp/test-app HEAD:main'
                 }
 
                 
