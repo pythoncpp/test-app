@@ -8,15 +8,6 @@ pipeline {
             }
         }
 
-        stage('SCM') {
-            steps {
-                echo "pulling the latest code from the repository"
-
-                // pull the code from github repository
-                git branch: 'main', url: 'https://github.com/pythoncpp/website.git'
-            }
-        }
-
         stage('build docker image') {
             
             steps {
