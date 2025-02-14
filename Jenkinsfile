@@ -57,11 +57,11 @@ pipeline {
                     // update the deployment file
                     sh 'sed -i "s/BUILD_NUMBER/$COMMIT_ID/g" deployment.yaml'
 
-                    git config user.email "pythoncpp@gmail.com"
-                    git config user.name "Amit Kulkarni"
-                    git add deployment.yaml
-                    git commit -m "updated deployment file"
-                    git push origin main
+                    sh 'git config user.email "pythoncpp@gmail.com"'
+                    sh 'git config user.name "Amit Kulkarni"'
+                    sh 'git add deployment.yaml'
+                    sh 'git commit -m "updated deployment file"'
+                    sh 'git push origin main'
                 }
 
                 
