@@ -34,7 +34,7 @@ pipeline {
                 echo "pushing the docker image to docker hub"
 
                 // push the docker image to docker hub
-                sh 'docker push amitksunbeam/website'
+                sh 'docker push amitksunbeam/website:$BUILD_NUMBER'
             }
         }
 
