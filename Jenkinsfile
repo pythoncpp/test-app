@@ -18,14 +18,12 @@ pipeline {
         }
 
         stage('build docker image') {
-            environment {
-                COMMIT_ID = BUILD_NUMBER
-            }
+            
             steps {
-                echo "building the docker image with commit id: $COMMIT_ID"
+                echo "building the docker image with commit id: $BUILD_NUMBER"
                 
                 // build the docker image
-                sh 'docker build -t amitksunbeam/website:$COMMIT_ID .'
+                sh 'docker build -t amitksunbeam/website:$BUILD_NUMBER .'
             }
         }
 
