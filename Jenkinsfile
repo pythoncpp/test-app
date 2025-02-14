@@ -19,7 +19,7 @@ pipeline {
 
         stage('build docker image') {
             environment {
-                COMMIT_ID = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                COMMIT_ID = BUILD_NUMBER
             }
             steps {
                 echo "building the docker image with commit id: $COMMIT_ID"
