@@ -18,11 +18,14 @@ pipeline {
         }
 
         stage('build docker image') {
+            environment {
+                COMMIT_ID = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+            }
             steps {
-                echo "building the docker image"
-
+                echo "building the docker image with commit id: $COMMIT_ID"
+                
                 // build the docker image
-                sh 'docker build -t amitksunbeam/website .'
+                sh 'docker build -t amitksunbeam/website:$COMMIT_ID .'
             }
         }
 
@@ -46,21 +49,22 @@ pipeline {
             }
         }
 
-        stage('remove existing docker service') {
+        stage('update deployment file') {
             steps {
-                echo "removing existing docker service"
+                echo "updating the deployment file"
 
-                // remove the service if it already exists
-                sh 'docker service rm website'
-            }
-        }
+                withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]) {
+                    // update the deployment file
+                    sh 'sed -i "s/amitksunbeam\/website:.*/amitksunbeam\/website:$COMMIT_ID/g" deployment.yaml'
 
-        stage('create new service') {
-            steps {
-                echo "creating new service"
+                    git config user.email "pythoncpp@gmail.com"
+                    git config user.name "Amit Kulkarni"
+                    git add deployment.yaml
+                    git commit -m "updated deployment file"
+                    git push origin main
+                }
 
-                // create a new service
-                sh 'docker service create --name website --replicas 2 -p 8090:80 amitksunbeam/website'
+                
             }
         }
     }
