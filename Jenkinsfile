@@ -55,7 +55,7 @@ pipeline {
 
                 withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]) {
                     // update the deployment file
-                    sh 'sed -i "s/amitksunbeam\/website:.*/amitksunbeam\/website:$COMMIT_ID/g" deployment.yaml'
+                    sh 'sed -i "s/BUILD_NUMBER/$COMMIT_ID/g" deployment.yaml'
 
                     git config user.email "pythoncpp@gmail.com"
                     git config user.name "Amit Kulkarni"
