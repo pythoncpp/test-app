@@ -15,7 +15,7 @@ pipeline {
                 echo "building the docker image with commit id: $BUILD_NUMBER"
                 
                 // build the docker image
-                sh 'docker build -t amitksunbeam/website:$BUILD_NUMBER .'
+                sh '/usr/local/bin/docker build -t amitksunbeam/website:$BUILD_NUMBER .'
             }
         }
 
@@ -35,7 +35,7 @@ pipeline {
                 echo "pushing the docker image to docker hub"
 
                 // push the docker image to docker hub
-                sh 'docker push amitksunbeam/website:$BUILD_NUMBER'
+                sh '/usr/local/bin/docker push amitksunbeam/website:$BUILD_NUMBER'
             }
         }
 
