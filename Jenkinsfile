@@ -1,14 +1,11 @@
 pipeline {
     agent any
     stages {
-        environment {
-            export PATH=$PATH:/usr/local/bin
-        }
-
+        
         stage('init environment') {
             steps {
                 echo "initializing the environment"
-                sh 'export PATH=$PATH:/usr/bin'
+                sh 'export PATH=$PATH:/usr/bin:/usr/local/bin'
             }
         }
 
